@@ -2,10 +2,8 @@ import argparse
 import os
 import subprocess
 
-smackPath = '/Users/grubb/Developer/smack-docker/smack'
-
 def test_toy(timelimit):
-	subprocess.call(['smack', '--only-check-valid-deref', '/toy/buggy/2/toy/toy.c'])
+	subprocess.call(['smack', '--only-check-valid-deref', '/vagrant/benchmark/toy_example_distrib/buggy/2/toy/toy.c'])
 	print "Benchmarking with LAVA toy has not been implemented"
 
 def test_1(timelimit):
