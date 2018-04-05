@@ -1,16 +1,11 @@
 import argparse
 import os
+import subprocess
 
 smackPath = '/Users/grubb/Developer/smack-docker/smack'
 
 def test_toy(timelimit):
-	client = docker.from_env()
-	dir_path = os.path.dirname(os.path.realpath(__file__))
-	container = client.containers.run(dockerImage, ['/bin/sh'], detach=True, volumes={dir_path + '/toy_example_distrib': {'bind': '/toy', 'mode': 'rw'}})
-	(exit_code, output) = container.exec_run(['smack', '--only-check-valid-deref', '/toy/buggy/2/toy/toy.c'])
-	print exit_code
-	print output
-	container.stop()
+	subprocess.call(['smack', '--only-check-valid-deref', '/toy/buggy/2/toy/toy.c'])
 	print "Benchmarking with LAVA toy has not been implemented"
 
 def test_1(timelimit):
