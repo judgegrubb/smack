@@ -1,4 +1,3 @@
-//
 // This file is distributed under the MIT License. See LICENSE for details.
 
 #include <smack.h>
@@ -67,6 +66,20 @@ void exit(int x) {
   __SMACK_code("assume false;");
   while(1);
 }
+
+int printf(const char *format, ...) {
+#if MEMORY_SAFETY
+  __SMACK_code("assert {:valid_deref} $Alloc[$base(@)];", format);
+  __SMACK_code("assert {:valid_deref} $sle.ref.bool($base(@), @);", format, format);
+#endif
+}
+
+/*size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+#if MEMORY_SAFETY
+  __SMACK_code("assert {:valid_deref} $Alloc[$base(@)];", stream);
+  __SMACK_code("assert {:valid_deref} $sle.ref.bool($base(@), @);", stream, stream);
+#endif
+}*/
 
 char __VERIFIER_nondet_char(void) {
   char x = __SMACK_nondet_char();
